@@ -5,6 +5,7 @@ import Fail2 from './assets/Fail 2.png'
 import Fail3 from './assets/Fail 3.png'
 import Fail4 from './assets/Fail 4.png'
 import Fail5 from './assets/Fail 5.png'
+import Icon from './../assets/Hangman picture.png'
 
 
 
@@ -12,6 +13,8 @@ import Fail5 from './assets/Fail 5.png'
 const Pictures = () => {
   return (
     <div>
+      <img src={Icon} alt='Icon'/>
+
       <img src={Start} alt='Start Screen'/>
 
       <img src={Fail0} alt='Fail 0'/>

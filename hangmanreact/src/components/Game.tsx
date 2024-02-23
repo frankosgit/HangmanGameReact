@@ -1,9 +1,19 @@
-import Pictures from "./Pictures";
 import { useEffect, useState } from "react";
 
 const Game = () => {
   const [randomWord, setRandomWord] = useState("");
   const [displayLetters, setDisplayLetters] = useState<string[]>([]);
+
+  const handleGuess = (letter: string) => {
+    const newDisplayLetters = randomWord
+      .split("")
+      .map((char, index) =>
+        displayLetters[index] === "_" && char === letter
+          ? char
+          : displayLetters[index]
+      );
+    setDisplayLetters(newDisplayLetters);
+  };
 
   useEffect(() => {
     const hangmanWords = [
@@ -60,20 +70,27 @@ const Game = () => {
       "update",
       "fallow",
     ];
-    const word = hangmanWords[Math.floor(Math.random() * hangmanWords.length)];
-    setRandomWord(word);
-    
-   
-    const initialDisplayLetters = word.split('').map((char, index) => index === 0 ? char : '_');
-    setDisplayLetters(initialDisplayLetters);
-  },
-    []);
+    const selectRandomWord = () => {
+      return hangmanWords[Math.floor(Math.random() * hangmanWords.length)];
+    };
 
- 
-  return <div>
-    <p>Selected Word : {displayLetters.join('')}</p>
-  </div>;
+    const newRandomWord = selectRandomWord();
+    setRandomWord(newRandomWord);
+    setDisplayLetters(new Array(newRandomWord.length).fill("_"));
+  }, []);
+
+  const handleLetterInput = (e) => {
+    const letter = e.target.value;
+    handleGuess(letter);
+  };
+
+  return (
+    <div>
+      <p>Selected Word : {displayLetters.join("")}</p>
+      <input type="text" onChange={handleLetterInput} maxLength={1} />
+      <p>Correct Word: {randomWord}</p>
+    </div>
+  );
 };
 
 export default Game;
-

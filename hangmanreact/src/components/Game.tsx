@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 const Game = () => {
   const [randomWord, setRandomWord] = useState("");
   const [displayLetters, setDisplayLetters] = useState<string[]>([]);
+  const [hasWon, setHasWon] = useState(Boolean);
 
   const handleGuess = (letter: string) => {
     const newDisplayLetters = randomWord
@@ -82,6 +83,7 @@ const Game = () => {
   const handleLetterInput = (e:React.ChangeEvent<HTMLInputElement>) => {
     const letter = e.target.value;
     handleGuess(letter);
+  
   };
 
   return (
@@ -89,6 +91,7 @@ const Game = () => {
       <p>Selected Word : {displayLetters.join("")}</p>
       <input type="text" onChange={handleLetterInput} maxLength={1} />
       <p>Correct Word: {randomWord}</p>
+      
     </div>
   );
 };

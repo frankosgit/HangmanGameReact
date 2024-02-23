@@ -1,4 +1,5 @@
 import './App.css'
+import Game from './components/Game'
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
             </div>
           </div>
           <div className="chat-bubble">Not leave it in Darkness</div>
+          <Game />
         </div>
       </div>
       <input type="text" placeholder="Type here" className="input input-bordered input-info w-full max-w-xs" />

@@ -1,4 +1,3 @@
-import React from 'react'
 import Start from './assets/Hangman Game start picture 1.png'
 import Fail0 from './assets/Fail 0.png'
 import Fail1 from './assets/Fail 1.png'

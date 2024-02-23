@@ -1,4 +1,4 @@
-
+import Pictures from "./Pictures";
 import { useEffect, useState } from "react";
 
 const Game = () => {

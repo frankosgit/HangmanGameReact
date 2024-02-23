@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 const Game = () => {
   const [randomWord, setRandomWord] = useState("");
+  const [displayLetters, setDisplayLetters] = useState<string[]>([]);
 
   useEffect(() => {
     const hangmanWords = [
@@ -59,16 +60,18 @@ const Game = () => {
       "update",
       "fallow",
     ];
-    const selectRandomWord = () => {
-      return hangmanWords[Math.floor(Math.random() * hangmanWords.length)];
-    };
-    setRandomWord(selectRandomWord());
+    const word = hangmanWords[Math.floor(Math.random() * hangmanWords.length)];
+    setRandomWord(word);
+    
+   
+    const initialDisplayLetters = word.split('').map((char, index) => index === 0 ? char : '_');
+    setDisplayLetters(initialDisplayLetters);
   },
     []);
 
  
   return <div>
-    <p>Selected Word : {randomWord}</p>
+    <p>Selected Word : {displayLetters.join('')}</p>
   </div>;
 };
 

@@ -1,9 +1,19 @@
 import { useEffect, useState } from "react";
+import { Player } from "../models/playerModels";
 
-const Game = () => {
+interface IGameProps {
+  playerOne: Player
+  playerTwo: Player
+  toggleActivePlayerOne: () => void
+}
+
+const Game = ({ playerOne, playerTwo, toggleActivePlayerOne }: IGameProps) => {
+
+
   const [randomWord, setRandomWord] = useState("");
   const [displayLetters, setDisplayLetters] = useState<string[]>([]);
   const [hasWon, setHasWon] = useState(Boolean);
+  const [showWord, setShowWord] = useState(Boolean)
 
   const handleGuess = (letter: string) => {
     const newDisplayLetters = randomWord
@@ -15,6 +25,10 @@ const Game = () => {
       );
     setDisplayLetters(newDisplayLetters);
   };
+
+  const handleShowWord = () => {
+  setShowWord(!showWord)
+  }
 
   useEffect(() => {
     const hangmanWords = [
@@ -80,19 +94,30 @@ const Game = () => {
     setDisplayLetters(new Array(newRandomWord.length).fill("_"));
   }, []);
 
-  const handleLetterInput = (e:React.ChangeEvent<HTMLInputElement>) => {
+  const handleLetterInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const letter = e.target.value;
     handleGuess(letter);
-  
+
   };
+
+  useEffect(() => {
+    toggleActivePlayerOne
+  }, [playerTwo.name])
 
   return (
     <div>
-      <p>Selected Word : {displayLetters.join("")}</p>
-      <input type="text" onChange={handleLetterInput} maxLength={1} />
-      <p>Correct Word: {randomWord}</p>
-      
-    </div>
+      <div className="flex flex-col mb-12">
+      <h1 className="text-primary mb-6">player one: {playerOne.name} lives:{playerOne.lives}</h1>
+      <h1 className="text-secondary">player two: {playerTwo.name}  lives:{playerTwo.lives}</h1>
+      </div>
+     
+
+      <input onChange={handleLetterInput} maxLength={1} type="text" placeholder="Type here" className="input input-bordered input-primary w-full max-w-xs mb-12"/>
+      {playerOne.inputActive && <input name='name' type="text" placeholder="Type here" className="input input-bordered input-primary w-full max-w-xs mb-12"/>}
+      <h3>Selected Word : {displayLetters.join("")}</h3>
+       {showWord && <h3>Correct Word: {randomWord}</h3>}
+
+   <button onClick={handleShowWord}> show</button> </div>
   );
 
 };

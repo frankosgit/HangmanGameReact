@@ -79,7 +79,7 @@ const Game = () => {
     setDisplayLetters(new Array(newRandomWord.length).fill("_"));
   }, []);
 
-  const handleLetterInput = (e) => {
+  const handleLetterInput = (e:React.ChangeEvent<HTMLInputElement>) => {
     const letter = e.target.value;
     handleGuess(letter);
   };

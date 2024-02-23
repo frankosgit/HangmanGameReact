@@ -91,6 +91,7 @@ const Game = () => {
       <p>Correct Word: {randomWord}</p>
     </div>
   );
+
 };
 
 export default Game;

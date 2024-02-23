@@ -10,6 +10,10 @@ function App() {
   const [textDisplay, setTextDisplay] = useState(new avatarText(false, false, false, false))
   const [startGame, setStartGame] = useState(false)
 
+  const toggleActivePlayerOne = () => {
+    setPlayerOne({...playerOne, active: !playerOne.active})
+  }
+
   const handlePlayerOneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPlayerOne({ ...playerOne, [e.target.name]: e.target.value })
   }
@@ -85,16 +89,7 @@ function App() {
               <div className="chat-bubble">Enter your name to start the game</div>
             </div>
           }
-          {textDisplay.foruthText &&
-            <div className="chat chat-start mb-12">
-              <div className="chat-image avatar">
-                <div className="w-10 rounded-full">
-                  <img alt="Tailwind CSS chat bubble component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                </div>
-              </div>
-              <div className="chat-bubble">Good luck!</div>
-            </div>
-          }
+
           {playerOne.active && <div className="chat chat-start mb-12">
             <div className="chat-image avatar">
               <div className="w-10 rounded-full">
@@ -104,16 +99,7 @@ function App() {
             <div className="chat-bubble">Player one enter your details</div>
           </div>
         }
-        {textDisplay.thirdText &&
-          <div className="chat chat-start mb-12">
-            <div className="chat-image avatar">
-              <div className="w-10 rounded-full">
-                <img alt="Tailwind CSS chat bubble component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-              </div>
-            </div>
-            <div className="chat-bubble">Enter your name and we can go further</div>
-          </div>
-        }
+
         {textDisplay.foruthText &&
           <div className="chat chat-start mb-12">
             <div className="chat-image avatar">
@@ -140,7 +126,12 @@ function App() {
       {playerOne.inputActive && <button className="btn btn-outline btn-primary" onClick={playerOneSubmit}>PlayerOneSubmit</button>}
       {playerTwo.inputActive && <button className="btn btn-outline btn-secondary" onClick={playerTwoSubmit}>PlayerTwoSubmit</button>}
       
-      {startGame && <Game />}
+      {startGame && 
+      <Game 
+        playerOne= {playerOne}
+        playerTwo= {playerTwo}
+        toggleActivePlayerOne= {toggleActivePlayerOne}
+      />}
     </>
   )
 }
